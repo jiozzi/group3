@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Tracker</title>
+  <link rel="stylesheet" href="budget.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Budget Tracker</h1>
+    <p>CS 146</p>
+  </header>
+
+  <main class="container">
+
+    <h2>Budget Tracker</h2>
+
+    <div class="row">
+      <div class="box">
+        <h3>Total Income</h3>
+        <p class="amount income">$0.00</p>
+      </div>
+      <div class="box">
+        <h3>Total Expenses</h3>
+        <p class="amount expense">$0.00</p>
+      </div>
+      <div class="box">
+        <h3>Remaining Balance</h3>
+        <p class="amount balance">$0.00</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>Add an Entry</h3>
+      <form id="entry-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="description">Description</label>
+            <input type="text" id="description" placeholder="e.g. Rent, Paycheck" />
+          </div>
+          <div class="field">
+            <label for="amount">Amount ($)</label>
+            <input type="number" id="amount" placeholder="0.00" min="0" step="0.01" />
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="">-- Select --</option>
+              <optgroup label="Income">
+                <option value="Salary">Salary</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Other Income">Other Income</option>
+              </optgroup>
+              <optgroup label="Expenses">
+                <option value="Housing">Housing</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Health">Health</option>
+                <option value="Education">Education</option>
+                <option value="Other Expense">Other Expense</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Date</label>
+            <input type="date" id="date" />
+          </div>
+        </div>
+        <button type="submit">Add Entry</button>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="box">
+        <h3>Spending by Category</h3>
+        <p class="empty">Chart will be populated by JS when expense entries are added.</p>
+      </div>
+      <div class="box">
+        <h3>Income vs. Expenses</h3>
+        <p class="empty">Chart will be populated by JS when entries are added.</p>
+      </div>
+    </div>
+    
+    <div class="box">
+      <h3>Transactions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="5" class="empty">No entries yet. Will be populated by JS when entries are added.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Budget Tracker - CS 146 - March 2026 - Kyle Torrente, Frank Onesto, Vinayak Ranjan, Jaden Iozzi</p>
+  </footer>
+
+</body>
+</html>
