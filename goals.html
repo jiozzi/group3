@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goals & History</title>
+  <link rel="stylesheet" href="goals-history.css">
+</head>
+<body>
+
+  <header>
+    <h1>Budget Tracker</h1>
+    <p>CS 146</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="income-expenses.html">Income & Expenses</a>
+    <a href="budget.html">Budget Overview</a>
+    <a href="goals.html">Goals & History</a>
+  </nav>
+
+  <main class="container">
+
+    <h2>Goals & History</h2>
+
+    <!-- Savings Goals -->
+    <div class="box">
+      <h3>Savings Goals</h3>
+
+      <form action="#" method="post">
+        <div class="field-row">
+          <div class="field">
+            <label for="goal-name">Goal Name</label>
+            <input type="text" id="goal-name" name="goal-name" placeholder="e.g. Emergency Fund">
+          </div>
+          <div class="field">
+            <label for="target-amount">Target Amount ($)</label>
+            <input type="number" id="target-amount" name="target-amount" placeholder="0.00" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="saved-so-far">Saved So Far ($)</label>
+            <input type="number" id="saved-so-far" name="saved-so-far" placeholder="0.00" min="0" step="0.01">
+          </div>
+        </div>
+        <button type="submit">Add Goal</button>
+      </form>
+    </div>
+
+    <div class="row">
+
+      <div class="box goal-card">
+        <h4>Emergency Fund</h4>
+        <p>$500 / $1,000</p>
+        <div class="progress-track">
+          <div class="progress-fill" style="width: 50%"></div>
+        </div>
+        <p>50% - $500 remaining</p>
+      </div>
+
+      <div class="box goal-card">
+        <h4>Vacation</h4>
+        <p>$200 / $800</p>
+        <div class="progress-track">
+          <div class="progress-fill" style="width: 25%"></div>
+        </div>
+        <p>25% - $600 remaining</p>
+      </div>
+
+      <div class="box goal-card">
+        <h4>New Laptop</h4>
+        <p>$1,200 / $1,500</p>
+        <div class="progress-track">
+          <div class="progress-fill" style="width: 80%"></div>
+        </div>
+        <p>80% - $300 remaining</p>
+      </div>
+
+    </div>
+
+    <!-- Budget History -->
+    <div class="box">
+      <h3>Budget History</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Income</th>
+            <th>Expenses</th>
+            <th>Balance</th>
+            <th>Savings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>January 2025</td>
+            <td class="income">$3,200.00</td>
+            <td class="expense">$2,450.00</td>
+            <td class="income">$750.00</td>
+            <td>$300.00</td>
+          </tr>
+          <tr>
+            <td>February 2025</td>
+            <td class="income">$3,200.00</td>
+            <td class="expense">$2,600.00</td>
+            <td class="income">$600.00</td>
+            <td>$200.00</td>
+          </tr>
+          <tr>
+            <td>March 2025</td>
+            <td class="income">$3,500.00</td>
+            <td class="expense">$2,300.00</td>
+            <td class="income">$1,200.00</td>
+            <td>$500.00</td>
+          </tr>
+          <tr>
+            <td>April 2025</td>
+            <td class="income">$3,200.00</td>
+            <td class="expense">$3,350.00</td>
+            <td class="expense">-$150.00</td>
+            <td>$0.00</td>
+          </tr>
+          <tr>
+            <td>May 2025</td>
+            <td class="income">$3,800.00</td>
+            <td class="expense">$2,500.00</td>
+            <td class="income">$1,300.00</td>
+            <td>$600.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Budget Tracker - CS 146 - March 2026 - Kyle Torrente, Frank Onesto, Vinayak Ranjan, Jaden Iozzi</p>
+  </footer>
+
+</body>
+</html>
