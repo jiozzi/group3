@@ -1,0 +1,104 @@
+/* ================================================
+   BUDGET PLANNER — styles.css
+   ================================================ 
+   Started with all empty rulesets, filled out by Kyle T.
+   Followed the general styling used in budget.css, since that was
+   completed first.
+   */
+
+
+/* ── Global / Reset ── */
+
+* {box-sizing: border-box; margin: 0; padding: 0;}
+
+body {font-family: Arial, sans-serif; background: #f4f4f4; color: #222;}
+
+header, footer {
+    background: #2c3e50;
+    color: #fff;
+    padding: 16px 24px;
+}
+
+footer { text-align: center; font-size: 0.85rem; color: #ccc; }
+
+main { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+
+
+/* ── Header ── */
+
+h1 { font-size: 1.6rem; font-weight: bold;}
+
+header p { font-size: 0.9rem; color: #ccc; margin-top: 6px;}
+
+/* ── Nav ── */
+
+nav { background: #fff; border: 1px solid #ccc; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;}
+nav a { background: #2c3e50; border: 1px solid #ccc; font-weight: bold; font-size: 1.6rem; text-align: center;}
+
+/* ── Planner layout ── */
+
+.planner { display: flex; flex-direction: column; gap: 20px;}
+
+
+/* ── Section cards ── */
+
+.section { background: #fff; border: 1px solid #ccc;}
+
+.income-section {border: 2px solid #27ae60;}
+
+.expense-section {border: 2px solid #c0392b;}
+
+.savings-section {border: 2px solid #2980b9;}
+
+.section-header { background: #2c3e50; color: #fff; padding: 12px 16px; }
+
+.section-title { font-size: 1rem; font-weight: bold; color: #fff; margin-bottom: 0;}
+
+.section-subtitle { font-size: 0.8rem; color: #aaa; margin-top: 4px;}
+
+.section-body { padding: 16px; }
+
+
+/* ── Subgroup (inside Expenses) ── */
+
+.subgroup-title { font-size: 0.85rem; font-weight: bold; color:#2c3e50; margin-bottom: 12px;}
+
+.divider { border: none; border-top: 1px solid #ddd; margin: 20px 0;}
+
+
+/* ── Entry rows & fields ── */
+
+.entries { display: flex; flex-direction: column; gap: 14px; margin-bottom: 14px;}
+
+.entry-row { display: flex; gap: 14px;}
+
+.field { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+label { font-size: 0.85rem; font-weight: bold;}
+
+input[type="text"], input[type="number"], select { padding: 8px; border: 1px solid #aaa; font-size: 0.9rem; width: 100%;}
+
+input::placeholder {color: #aaa;}
+
+input:focus, select:focus { outline: 2px solid #2c3e50}
+
+
+/* ── Buttons ── */
+
+.btn-add-row { padding: 8px 16px; background: #2c3e50; color: #fff; border: none; font-size: 0.85rem; margin-top: 4px;}
+
+.btn-add-row:hover { background: #1a252f;}
+
+/* ── Other ── */
+
+a:link {
+    color: #ccc; 
+}
+
+a:visited {
+    color: #ccc;
+}
+
+a:hover {
+    color: #99aab8;
+}

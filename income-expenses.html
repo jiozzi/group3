@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Budget Planner</title>
+  <title>Income & Expenses</title>
   <link rel="stylesheet" href="income-expenses.css" /><!-- css file to be referenced later -->
 </head>
 <body>
@@ -14,8 +14,15 @@
     <h1>Income, Expenses, Savings Goals</h1>
     <p>Input your <a href="#income-entries">income sources</a>, <a href="#expense-fixed-entries">recurring expenses</a> (such as bills, rent, etc.), 
       <a href="#expense-variable-entries">estimated expenses</a> (such as gas, groceries, etc.), and <a href="#savings-entries">what you're saving for</a>, and 
-    our programs will do the rest!</p>
+    add them to your budget planner.</p>
   </header>
+
+  <nav>
+    <a id="home" href="index.html">Home</a>
+    <a id="income-expenses" href="income-expenses.html">Income & Expenses</a>
+    <a id="budget" href="budget.html">Budget Overview</a>
+    <a id="goals" href="goals.html">Goals & History</a>
+  </nav>
 
   <main class="planner">
 
@@ -43,7 +50,7 @@
             <div class="field">
               <label for="income-freq-1">Frequency</label>
               <select id="income-freq-1">
-                <option value="">— select —</option>
+                <option value="">—select—</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
                 <option value="biweekly">Every 2 weeks</option>
@@ -90,7 +97,7 @@
             <div class="field">
               <label for="exp-fixed-freq-1">Frequency</label>
               <select>
-                <option value="">— select —</option>
+                <option value="">—select—</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
                 <option value="biweekly">Every 2 weeks</option>
@@ -122,7 +129,7 @@
             <div class="field">
               <label for="exp-var-freq-1">Per</label>
               <select id="exp-var-freq-1">
-                <option value="">— select —</option>
+                <option value="">—select—</option>
                 <option value="daily">Day</option>
                 <option value="weekly">Week</option>
                 <option value="monthly">Month</option>
@@ -160,7 +167,7 @@
             </div>
             <div class="field">
               <label for="goal-deadline-1">Target Date (optional)</label>
-              <input type="text" id="goal-deadline-1" placeholder="MM / YYYY" />
+              <input type="date" id="date" />
             </div>
           </div>
 
@@ -173,6 +180,9 @@
   </main>
 
  <!--<script src="script.js"></script>-->  <!-- .js file to be referenced later. -->
+ <footer>
+    <p>Budget Tracker - CS 146 - March 2026 - Kyle Torrente, Frank Onesto, Vinayak Ranjan, Jaden Iozzi</p>
+  </footer>
 </body>
 </html>
 
