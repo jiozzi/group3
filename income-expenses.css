@@ -32,8 +32,39 @@ header p { font-size: 0.9rem; color: #ccc; margin-top: 6px;}
 
 /* ── Nav ── */
 
-nav { background: #fff; border: 1px solid #ccc; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;}
-nav a { background: #2c3e50; border: 1px solid #ccc; font-weight: bold; font-size: 1.6rem; text-align: center;}
+nav { 
+  background: #34495e;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-bottom: 3px solid #2c3e50;
+}
+
+nav a { 
+  flex: 1;
+  padding: 12px 16px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-right: 1px solid #2c3e50;
+  transition: background-color 0.3s ease;
+}
+
+nav a:last-child {
+  border-right: none;
+}
+
+nav a:hover {
+  background: #2c3e50;
+}
+
+nav a.active {
+  background: #2c3e50;
+  border-bottom: 3px solid #27ae60;
+}
 
 /* ── Planner layout ── */
 
