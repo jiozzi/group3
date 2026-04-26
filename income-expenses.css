@@ -75,11 +75,11 @@ nav a.active {
 
 .section { background: #fff; border: 1px solid #ccc;}
 
-.income-section {border: 2px solid #27ae60;}
+.income-section  { border: 2px solid #27ae60; }
 
-.expense-section {border: 2px solid #c0392b;}
+.expense-section { border: 2px solid #c0392b; }
 
-.savings-section {border: 2px solid #2980b9;}
+.savings-section { border: 2px solid #2980b9; }
 
 .section-header { background: #2c3e50; color: #fff; padding: 12px 16px; }
 
@@ -101,7 +101,7 @@ nav a.active {
 
 .entries { display: flex; flex-direction: column; gap: 14px; margin-bottom: 14px;}
 
-.entry-row { display: flex; gap: 14px;}
+.entry-row { display: flex; gap: 14px; align-items: flex-start; }
 
 .field { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 
@@ -111,25 +111,208 @@ input[type="text"], input[type="number"], select { padding: 8px; border: 1px sol
 
 input::placeholder {color: #aaa;}
 
-input:focus, select:focus { outline: 2px solid #2c3e50}
+input:focus, select:focus { outline: 2px solid #2c3e50; }
 
 
 /* ── Buttons ── */
 
-.btn-add-row { padding: 8px 16px; background: #2c3e50; color: #fff; border: none; font-size: 0.85rem; margin-top: 4px;}
+.btn-add-row {
+  padding: 8px 16px;
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  cursor: pointer;
+}
 
-.btn-add-row:hover { background: #1a252f;}
+.btn-add-row:hover { background: #1a252f; }
+
+.btn-confirm {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.income-section  .btn-confirm { background: #27ae60; }
+.income-section  .btn-confirm:hover { background: #1e8449; }
+
+.expense-section .btn-confirm { background: #c0392b; }
+.expense-section .btn-confirm:hover { background: #922b21; }
+
+.savings-section .btn-confirm { background: #2980b9; }
+.savings-section .btn-confirm:hover { background: #1f618d; }
+
+.btn-remove-row {
+  background: none;
+  border: 1px solid #aaa;
+  color: #c0392b;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  margin-top: 22px; /* aligns with input fields */
+  white-space: nowrap;
+  transition: background-color 0.15s;
+}
+
+.btn-remove-row:hover {
+  background-color: #fdecea;
+  border-color: #c0392b;
+}
+
+
+/* ── Validation ── */
+
+.field-error {
+  border: 1.5px solid #c0392b !important;
+  background-color: #fff5f5;
+}
+
+.error-msg {
+  display: block;
+  color: #c0392b;
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+.section-feedback {
+  margin-top: 12px;
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  font-weight: bold;
+  border-left: 4px solid transparent;
+}
+
+.feedback-success {
+  background-color: #eafaf1;
+  color: #1e8449;
+  border-left-color: #27ae60;
+}
+
+.feedback-error {
+  background-color: #fdecea;
+  color: #922b21;
+  border-left-color: #c0392b;
+}
+
+
+/* ── Budget Summary Section ── */
+
+#budget-summary-banner {
+  max-width: 960px;
+  margin: 0 auto 24px;
+  padding: 0 20px;
+}
+
+.summary-section {
+  background: #fff;
+  border: 2px solid #8e44ad;
+}
+
+.summary-section .section-header {
+  background: #2c3e50;
+}
+
+.summary-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summary-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  flex: 1;
+  min-width: 160px;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+}
+
+.summary-card .card-label {
+  font-size: 0.78rem;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.summary-card .card-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.summary-card.card-income  .card-value { color: #1e8449; }
+.summary-card.card-expense .card-value { color: #c0392b; }
+.summary-card.card-net.positive        .card-value { color: #1e8449; }
+.summary-card.card-net.negative        .card-value { color: #c0392b; }
+
+.summary-card .card-sub {
+  font-size: 0.78rem;
+  color: #777;
+  margin-top: 4px;
+}
+
+.summary-savings-title {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.summary-savings-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-savings-list li {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.summary-savings-list .goal-name { font-weight: bold; color: #2c3e50; }
+.summary-savings-list .goal-meta { color: #555; font-size: 0.82rem; }
+
+.summary-empty {
+  font-size: 0.88rem;
+  color: #aaa;
+  font-style: italic;
+}
+
+.summary-updated {
+  font-size: 0.78rem;
+  color: #aaa;
+  text-align: right;
+}
+
 
 /* ── Other ── */
 
-a:link {
-    color: #ccc; 
-}
-
-a:visited {
-    color: #ccc;
-}
-
-a:hover {
-    color: #99aab8;
-}
+a:link    { color: #ccc; }
+a:visited { color: #ccc; }
+a:hover   { color: #99aab8; }
