@@ -31,13 +31,8 @@ nav a {
   transition: background-color 0.3s ease;
 }
 
-nav a:last-child {
-  border-right: none;
-}
-
-nav a:hover {
-  background: #2c3e50;
-}
+nav a:last-child { border-right: none; }
+nav a:hover { background: #2c3e50; }
 
 nav a.active {
   background: #2c3e50;
@@ -71,3 +66,49 @@ table { width: 100%; border-collapse: collapse; }
 th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ddd; }
 thead { background: #2c3e50; color: #fff; }
 .empty { text-align: center; color: #888; }
+
+.delete-btn {
+  padding: 4px 10px;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.delete-btn:hover { background: #96281b; }
+
+/* Pie chart layout */
+canvas {
+  display: block;
+  margin: 8px auto;
+}
+
+.pie-legend {
+  margin-top: 10px;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  flex: 1;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.legend-value {
+  color: #555;
+}
