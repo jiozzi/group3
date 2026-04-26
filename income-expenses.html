@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Income & Expenses</title>
   <link rel="stylesheet" href="income-expenses.css" /><!-- css file to be referenced later -->
+  <script src="income-expenses.js"></script>
 </head>
 <body>
 
@@ -177,9 +178,54 @@
       </div>
     </section>
 
+    <div id="budget-summary-banner">
+  <section class="section summary-section">
+ 
+    <div class="section-header">
+      <h2 class="section-title">Budget Summary</h2>
+      <p class="section-subtitle">Updates each time you confirm a section above</p>
+    </div>
+ 
+    <div class="summary-body">
+ 
+      <!-- ── Totals grid ── -->
+      <div class="summary-grid">
+ 
+        <div class="summary-card card-income">
+          <div class="card-label">Monthly Income</div>
+          <div class="card-value" id="sum-income">$0</div>
+        </div>
+ 
+        <div class="summary-card card-expense">
+          <div class="card-label">Monthly Expenses</div>
+          <div class="card-value" id="sum-expense">$0</div>
+          <div class="card-sub"  id="sum-expense-sub">Fixed $0 + Variable $0</div>
+        </div>
+ 
+        <div class="summary-card card-net">
+          <div class="card-label">Net Cash Flow / mo</div>
+          <div class="card-value" id="sum-net">$0/mo</div>
+        </div>
+ 
+      </div>
+ 
+      <!-- ── Savings timeline ── -->
+      <div id="summary-savings-section">
+        <p class="summary-savings-title">Savings Timeline</p>
+        <p class="summary-empty" id="summary-savings-empty">
+          Confirm your savings goals above to see a timeline here.
+        </p>
+        <ul class="summary-savings-list" id="summary-savings-list"></ul>
+      </div>
+ 
+      <p class="summary-updated" id="sum-updated"></p>
+ 
+    </div><!-- /.summary-body -->
+  </section>
+</div><!-- /#budget-summary-banner -->
+
   </main>
 
- <!--<script src="script.js"></script>-->  <!-- .js file to be referenced later. -->
  <footer>
     <p>Budget Tracker - CS 146 - March 2026 - Kyle Torrente, Frank Onesto, Vinayak Ranjan, Jaden Iozzi</p>
   </footer>
