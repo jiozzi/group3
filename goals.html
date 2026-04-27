@@ -15,72 +15,127 @@
 
   <nav>
     <a href="index.html">Home</a>
-    <a href="income-expenses.html">Income & Expenses</a>
+    <a href="income-expenses.html">Income &amp; Expenses</a>
     <a href="budget.html">Budget Overview</a>
-    <a href="goals.html" class="active">Goals & History</a>
+    <a href="goals.html">Goals &amp; History</a>
   </nav>
+
+  <!-- Toast notification (injected by JS) -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
   <main class="container">
 
-    <h2>Goals & History</h2>
+    <h2>Goals &amp; History</h2>
 
-    <!-- Savings Goals -->
     <div class="box">
-      <h3>Savings Goals</h3>
-
-      <form action="#" method="post">
+      <h3>Add a Savings Goal</h3>
+      <form id="goal-form" novalidate>
         <div class="field-row">
           <div class="field">
             <label for="goal-name">Goal Name</label>
-            <input type="text" id="goal-name" name="goal-name" placeholder="e.g. Emergency Fund">
+            <input type="text" id="goal-name" name="goal-name"
+                   placeholder="e.g. Emergency Fund" maxlength="50">
           </div>
           <div class="field">
             <label for="target-amount">Target Amount ($)</label>
-            <input type="number" id="target-amount" name="target-amount" placeholder="0.00" min="0" step="0.01">
+            <input type="number" id="target-amount" name="target-amount"
+                   placeholder="0.00" min="0" step="0.01">
           </div>
           <div class="field">
             <label for="saved-so-far">Saved So Far ($)</label>
-            <input type="number" id="saved-so-far" name="saved-so-far" placeholder="0.00" min="0" step="0.01">
+            <input type="number" id="saved-so-far" name="saved-so-far"
+                   placeholder="0.00" min="0" step="0.01">
           </div>
+          <div class="field">
+            <label for="goal-priority">Priority</label>
+            <select id="goal-priority" name="goal-priority">
+              <option value="normal">Normal</option>
+              <option value="high">High (add to top)</option>
+            </select>
+          </div>
+
         </div>
-        <button type="submit">Add Goal</button>
+        <div class="checkbox-row">
+          <input type="checkbox" id="pin-goal" name="pin-goal">
+          <label for="pin-goal">Pin this goal to the top of the dashboard</label>
+        </div>
+        <div class="btn-row">
+          <button type="submit">Add Goal</button>
+          <button type="reset" id="form-reset">Reset</button>
+        </div>
       </form>
     </div>
-
-    <div class="row">
-
-      <div class="box goal-card">
-        <h4>Emergency Fund</h4>
-        <p>$500 / $1,000</p>
-        <div class="progress-track">
-          <div class="progress-fill" style="width: 50%"></div>
-        </div>
-        <p>50% - $500 remaining</p>
-      </div>
-
-      <div class="box goal-card">
-        <h4>Vacation</h4>
-        <p>$200 / $800</p>
-        <div class="progress-track">
-          <div class="progress-fill" style="width: 25%"></div>
-        </div>
-        <p>25% - $600 remaining</p>
-      </div>
-
-      <div class="box goal-card">
-        <h4>New Laptop</h4>
-        <p>$1,200 / $1,500</p>
-        <div class="progress-track">
-          <div class="progress-fill" style="width: 80%"></div>
-        </div>
-        <p>80% - $300 remaining</p>
-      </div>
-
+    <div class="row" id="goals-container">
     </div>
+    <div class="box">
+      <h3>Set Monthly Budget Limit</h3>
+      <form id="budget-limit-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="budget-month">Month</label>
+            <input type="month" id="budget-month" name="budget-month">
+          </div>
+          <div class="field">
+            <label for="monthly-limit">Spending Limit ($)</label>
+            <input type="number" id="monthly-limit" name="monthly-limit"
+                   placeholder="e.g. 2500" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="limit-category">Category</label>
+            <select id="limit-category" name="limit-category">
+              <option value="Overall">Overall</option>
+              <option value="Housing">Housing</option>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-    <!-- Budget History -->
+        </div>
+        <div class="btn-row">
+          <button type="submit">Set Limit</button>
+          <button type="reset">Clear</button>
+        </div>
+      </form>
+      <div id="budget-limit-display" class="limit-display"></div>
+    </div>
     <div class="box">
       <h3>Budget History</h3>
+      <form id="history-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="history-month">Month</label>
+            <input type="text" id="history-month" name="history-month" placeholder="e.g. June 2025" maxlength="30">
+          </div>
+          <div class="field">
+            <label for="history-income">Income ($)</label>
+            <input type="number" id="history-income" name="history-income" placeholder="0.00" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="history-expenses">Expenses ($)</label>
+            <input type="number" id="history-expenses" name="history-expenses" placeholder="0.00" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="history-savings">Savings ($)</label>
+            <input type="number" id="history-savings" name="history-savings" placeholder="0.00" min="0" step="0.01">
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="submit">Add Entry</button>
+          <button type="reset">Clear</button>
+        </div>
+      </form>
+      <div class="filter-row">
+        <label for="history-filter">Filter / Sort:</label>
+        <select id="history-filter">
+          <option value="all">All Months</option>
+          <option value="positive">Positive Balance Only</option>
+          <option value="negative">Negative Balance Only</option>
+          <option value="savings">Highest Savings First</option>
+        </select>
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -91,51 +146,14 @@
             <th>Savings</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>January 2025</td>
-            <td class="income">$3,200.00</td>
-            <td class="expense">$2,450.00</td>
-            <td class="income">$750.00</td>
-            <td>$300.00</td>
-          </tr>
-          <tr>
-            <td>February 2025</td>
-            <td class="income">$3,200.00</td>
-            <td class="expense">$2,600.00</td>
-            <td class="income">$600.00</td>
-            <td>$200.00</td>
-          </tr>
-          <tr>
-            <td>March 2025</td>
-            <td class="income">$3,500.00</td>
-            <td class="expense">$2,300.00</td>
-            <td class="income">$1,200.00</td>
-            <td>$500.00</td>
-          </tr>
-          <tr>
-            <td>April 2025</td>
-            <td class="income">$3,200.00</td>
-            <td class="expense">$3,350.00</td>
-            <td class="expense">-$150.00</td>
-            <td>$0.00</td>
-          </tr>
-          <tr>
-            <td>May 2025</td>
-            <td class="income">$3,800.00</td>
-            <td class="expense">$2,500.00</td>
-            <td class="income">$1,300.00</td>
-            <td>$600.00</td>
-          </tr>
+        <tbody id="history-tbody">
         </tbody>
       </table>
     </div>
-
   </main>
-
   <footer>
-    <p>Budget Tracker - CS 146 - March 2026 - Kyle Torrente, Frank Onesto, Vinayak Ranjan, Jaden Iozzi</p>
+    <p>Budget Tracker &mdash; CS 146 &mdash; March 2026 &mdash; Kyle Torrente, Frank Onesto, Vinayak Ranjan, Jaden Iozzi</p>
   </footer>
-
+  <script src="goals.js"></script>
 </body>
 </html>
