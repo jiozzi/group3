@@ -265,6 +265,14 @@ function clearBudgetErrors() {
   document.querySelectorAll('#budget-limit-form .error-msg').forEach(el => el.remove());
 }
 document.addEventListener('DOMContentLoaded', () => {
+  const savedSavings = JSON.parse(sessionStorage.getItem('savings') || '[]');
+  savedSavings.forEach(s => {
+    if (!s.goal || s.targetPrice <= 0) return;
+    const alreadyExists = goals.some(g => g.name === s.goal);
+    if (!alreadyExists) {
+      goals.push({ name: s.goal, saved: 0, target: s.targetPrice });
+    }
+  });
   renderGoals();
   renderHistory(budgetHistory);
   initGoalForm();
