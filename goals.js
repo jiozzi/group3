@@ -1,17 +1,24 @@
-// goals.js 
 function escapeHTML(str) {
   const div = document.createElement('div');
   div.appendChild(document.createTextNode(String(str)));
   return div.innerHTML;
 }
 
-const goals = [
-  { name: 'Emergency Fund', saved: 500,  target: 1000 },
-  { name: 'Vacation',       saved: 200,  target: 800  },
-  { name: 'New Laptop',     saved: 1200, target: 1500 },
-];
+let goals = [];
+let budgetHistory = [];
+let budgetLimits = [];
 
-const budgetHistory = [];
+function saveGoals() {
+  localStorage.setItem('goals_goals', JSON.stringify(goals));
+}
+
+function saveHistory() {
+  localStorage.setItem('goals_history', JSON.stringify(budgetHistory));
+}
+
+function saveLimits() {
+  localStorage.setItem('goals_limits', JSON.stringify(budgetLimits));
+}
 
 function renderGoals() {
   const container = document.getElementById('goals-container');
@@ -51,6 +58,7 @@ function renderGoals() {
     btn.addEventListener('click', () => {
       const idx = parseInt(btn.dataset.index, 10);
       goals.splice(idx, 1);
+      saveGoals();
       renderGoals();
       showToast('Goal deleted.');
     });
@@ -65,10 +73,12 @@ function renderGoals() {
         showToast('Enter a positive amount.', 'error');
         return;
       }
+      const goalName = goals[idx].name;
       goals[idx].saved = Math.min(goals[idx].target, goals[idx].saved + amount);
       input.value = '';
+      saveGoals();
       renderGoals();
-      showToast(`Added $${amount.toFixed(2)} to "${goals[idx].name}".`);
+      showToast(`Added $${amount.toFixed(2)} to "${goalName}".`);
     });
   });
 }
@@ -93,19 +103,43 @@ function renderHistory(data) {
     tbody.appendChild(tr);
   });
 }
+
+function applyHistoryFilter(val) {
+  let filtered = [...budgetHistory];
+  if (val === 'positive') {
+    filtered = filtered.filter(r => r.income - r.expenses >= 0);
+  } else if (val === 'negative') {
+    filtered = filtered.filter(r => r.income - r.expenses < 0);
+  } else if (val === 'savings') {
+    filtered = [...filtered].sort((a, b) => b.savings - a.savings);
+  }
+  renderHistory(filtered);
+}
+
 function initHistoryFilter() {
   const filterSelect = document.getElementById('history-filter');
   filterSelect.addEventListener('change', () => {
-    const val = filterSelect.value;
-    let filtered = [...budgetHistory];
-    if (val === 'positive') {
-      filtered = filtered.filter(r => r.income - r.expenses >= 0);
-    } else if (val === 'negative') {
-      filtered = filtered.filter(r => r.income - r.expenses < 0);
-    } else if (val === 'savings') {
-      filtered = [...filtered].sort((a, b) => b.savings - a.savings);
-    }
-    renderHistory(filtered);
+    applyHistoryFilter(filterSelect.value);
+  });
+}
+
+function renderLimits() {
+  const display = document.getElementById('budget-limit-display');
+  display.innerHTML = '';
+  budgetLimits.forEach((limit, idx) => {
+    const card = document.createElement('div');
+    card.className = 'limit-card';
+    card.innerHTML = `
+      <span class="limit-badge">${escapeHTML(limit.category)}</span>
+      <strong>${escapeHTML(limit.monthLabel)}</strong>: $${limit.amount.toFixed(2)} limit
+      <button class="delete-limit-btn" aria-label="Remove limit">✕</button>
+    `;
+    card.querySelector('.delete-limit-btn').addEventListener('click', () => {
+      budgetLimits.splice(idx, 1);
+      saveLimits();
+      renderLimits();
+    });
+    display.appendChild(card);
   });
 }
 
@@ -114,9 +148,9 @@ function initGoalForm() {
   form.addEventListener('submit', e => {
     e.preventDefault();
     clearErrors();
-    const nameEl    = document.getElementById('goal-name');
-    const targetEl  = document.getElementById('target-amount');
-    const savedEl   = document.getElementById('saved-so-far');
+    const nameEl     = document.getElementById('goal-name');
+    const targetEl   = document.getElementById('target-amount');
+    const savedEl    = document.getElementById('saved-so-far');
     const priorityEl = document.getElementById('goal-priority');
     const name   = nameEl.value.trim();
     const target = parseFloat(targetEl.value);
@@ -150,6 +184,7 @@ function initGoalForm() {
       goals.push(newGoal);
     }
     form.reset();
+    saveGoals();
     renderGoals();
     showToast(`Goal "${escapeHTML(name)}" added!`);
   });
@@ -158,6 +193,7 @@ function initGoalForm() {
     clearErrors();
   });
 }
+
 function showError(inputEl, message) {
   inputEl.classList.add('input-error');
   const errSpan = document.createElement('span');
@@ -165,10 +201,12 @@ function showError(inputEl, message) {
   errSpan.textContent = message;
   inputEl.parentNode.appendChild(errSpan);
 }
+
 function clearErrors() {
   document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
   document.querySelectorAll('.error-msg').forEach(el => el.remove());
 }
+
 function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
   toast.textContent = message;
@@ -178,11 +216,10 @@ function showToast(message, type = 'success') {
 
 function initBudgetLimitForm() {
   const form = document.getElementById('budget-limit-form');
-  const display = document.getElementById('budget-limit-display');
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const monthEl = document.getElementById('budget-month');
-    const limitEl = document.getElementById('monthly-limit');
+    const monthEl    = document.getElementById('budget-month');
+    const limitEl    = document.getElementById('monthly-limit');
     const categoryEl = document.getElementById('limit-category');
     const month    = monthEl.value;
     const limit    = parseFloat(limitEl.value);
@@ -199,15 +236,9 @@ function initBudgetLimitForm() {
     }
     if (!valid) return;
     const monthLabel = new Date(month + '-02').toLocaleString('default', { month: 'long', year: 'numeric' });
-    const card = document.createElement('div');
-    card.className = 'limit-card';
-    card.innerHTML = `
-      <span class="limit-badge">${escapeHTML(category)}</span>
-      <strong>${escapeHTML(monthLabel)}</strong>: $${limit.toFixed(2)} limit
-      <button class="delete-limit-btn" aria-label="Remove limit">✕</button>
-    `;
-    card.querySelector('.delete-limit-btn').addEventListener('click', () => card.remove());
-    display.appendChild(card);
+    budgetLimits.push({ category, monthLabel, amount: limit });
+    saveLimits();
+    renderLimits();
     form.reset();
     showToast(`Budget limit set for ${monthLabel}.`);
   });
@@ -246,6 +277,7 @@ function initHistoryForm() {
     }
     if (!valid) return;
     budgetHistory.push({ month, income, expenses, savings });
+    saveHistory();
     form.reset();
     renderHistory(budgetHistory);
     showToast(`Entry for "${escapeHTML(month)}" added!`);
@@ -264,17 +296,35 @@ function clearBudgetErrors() {
   document.querySelectorAll('#budget-limit-form .input-error').forEach(el => el.classList.remove('input-error'));
   document.querySelectorAll('#budget-limit-form .error-msg').forEach(el => el.remove());
 }
+
 document.addEventListener('DOMContentLoaded', () => {
-  const savedSavings = JSON.parse(sessionStorage.getItem('savings') || '[]');
-  savedSavings.forEach(s => {
-    if (!s.goal || s.targetPrice <= 0) return;
-    const alreadyExists = goals.some(g => g.name === s.goal);
-    if (!alreadyExists) {
-      goals.push({ name: s.goal, saved: 0, target: s.targetPrice });
-    }
-  });
+  const storedGoals = localStorage.getItem('goals_goals');
+  if (storedGoals) {
+    goals = JSON.parse(storedGoals);
+  } else {
+    const savedSavings = JSON.parse(sessionStorage.getItem('savings') || '[]');
+    savedSavings.forEach(s => {
+      if (!s.goal || s.targetPrice <= 0) return;
+      const alreadyExists = goals.some(g => g.name === s.goal);
+      if (!alreadyExists) {
+        goals.push({ name: s.goal, saved: 0, target: s.targetPrice });
+      }
+    });
+  }
+
+  const storedHistory = localStorage.getItem('goals_history');
+  if (storedHistory) {
+    budgetHistory = JSON.parse(storedHistory);
+  }
+
+  const storedLimits = localStorage.getItem('goals_limits');
+  if (storedLimits) {
+    budgetLimits = JSON.parse(storedLimits);
+  }
+
   renderGoals();
   renderHistory(budgetHistory);
+  renderLimits();
   initGoalForm();
   initHistoryFilter();
   initHistoryForm();
